@@ -1,0 +1,29 @@
+service: automatic-deploy-lambda-apigateway
+
+provider:
+  name: aws
+  runtime: python3.7
+  vpc:
+    securityGroupIds:
+     # - sg-5dc1e82c
+    subnetIds:
+     # - subnet-1f480633
+     # - subnet-f2e7e5ba
+  memorySize: 128
+  timeout: 10
+
+functions:
+  hello-world-get:
+    handler: handler.get
+    events:
+      - http: GET hello-world
+
+  hello-world-post:
+    handler: handler.post
+    events:
+     - http:
+        method: post
+        path: hello-world
+        integration: lambda
+
+
